@@ -41,8 +41,7 @@ export default {
   width: 180px;
   height: 170px;
 }
-/* .buy-now {
-} */
+
 @media only screen and (max-width: 320px) {
   .image {
     width: 170px;
