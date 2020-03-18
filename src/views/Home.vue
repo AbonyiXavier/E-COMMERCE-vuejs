@@ -12,7 +12,8 @@
         </b-col>
 
         <b-col cols="9">
-          <h4 class="text-center">Products</h4>
+          <Carousel />
+          <h4 class="text-center mt-3">Products</h4>
           <Product
             v-for="product in products"
             :product="product"
@@ -28,6 +29,7 @@
 // @ is an alias to /src
 import Product from "../components/Product";
 import Category from "../components/Category";
+import Carousel from "../components/Carousel";
 export default {
   name: "Home",
   data() {
@@ -44,6 +46,18 @@ export default {
         {
           id: 3,
           categoryName: "Wrist Watch"
+        },
+        {
+          id: 4,
+          categoryName: "Hat"
+        },
+        {
+          id: 5,
+          categoryName: "Phones"
+        },
+        {
+          id: 6,
+          categoryName: "Perfumes"
         }
       ],
       products: [
@@ -83,12 +97,35 @@ export default {
           price: "#40",
           imageLink: require("@/assets/8.jpg")
         }
+      ],
+      lists: [
+        {
+          id: 1,
+          url: require("@/assets/dd.jpg")
+        },
+        {
+          id: 2,
+          url: require("@/assets/Artboard_1.jpg")
+        },
+        {
+          id: 3,
+          url: require("@/assets/Artboard_1_copy_5.jpg")
+        },
+        {
+          id: 4,
+          url: require("@/assets/vouchers.jpg")
+        },
+        {
+          id: 5,
+          url: require("@/assets/NG_W12_S1_MERCH_Floor.jpg")
+        }
       ]
     };
   },
   components: {
     Category,
-    Product
+    Product,
+    Carousel
   }
 };
 </script>

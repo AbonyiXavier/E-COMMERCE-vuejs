@@ -18,7 +18,7 @@
 
             <b-nav-item right>
               <!-- Using 'button-content' slot -->
-              <i class="fas fa-shopping-cart"></i>
+              <i class="fas fa-shopping-cart"></i> Cart
             </b-nav-item>
           </b-navbar-nav>
         </b-collapse>
