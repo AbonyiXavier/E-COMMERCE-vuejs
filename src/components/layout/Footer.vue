@@ -192,7 +192,7 @@ export default {
 .bg-color {
   /* background-color: black; */
   background-color: rgb(32, 32, 32);
-  height: 50vh;
+  height: 60vh;
 }
 .footer-item {
   color: #fff;
