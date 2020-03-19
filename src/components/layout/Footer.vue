@@ -148,7 +148,7 @@
               </a>
             </b-col>
           </span>
-          <b-col class="text-center mt-3">
+          <b-col class>
             <a href>TERMS & CONDITIONS</a>
           </b-col>
         </b-row>
@@ -192,7 +192,7 @@ export default {
 .bg-color {
   /* background-color: black; */
   background-color: rgb(32, 32, 32);
-  height: 60vh;
+  height: 50vh;
 }
 .footer-item {
   color: #fff;
@@ -239,6 +239,10 @@ h6 {
   font-weight: bold;
 }
 
+/* @media only screen and (max-width: 600px) {
+
+} */
+
 @media only screen and (max-width: 600px) {
   .wrapper {
     display: none;
@@ -257,7 +261,7 @@ h6 {
   }
   .bg-color {
     background-color: rgb(32, 32, 32);
-    height: 30vh;
+    height: 25vh;
   }
   .copyright {
     font-size: 10px;
