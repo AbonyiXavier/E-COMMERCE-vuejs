@@ -239,7 +239,7 @@ h6 {
   font-weight: bold;
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 600px) {
   .wrapper {
     display: none;
   }
