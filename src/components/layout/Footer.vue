@@ -239,9 +239,52 @@ h6 {
   font-weight: bold;
 }
 
-/* @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
+  .bg-color {
+    /* background-color: black; */
+    background-color: rgb(32, 32, 32);
+    height: 80vh;
+  }
+  .footer-item {
+    color: #fff;
+    font-size: 14px;
+  }
+  ul li {
+    text-decoration: none;
+    list-style: none;
+    font-size: 14px;
+    color: #fff;
+  }
+  ul a li {
+    text-decoration: none;
+  }
+  .ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 9px;
+    font-size: 14px;
+    color: #fff;
+  }
+  .hr {
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 12rem;
+    margin-inline-end: 10rem;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 0.3px;
+  }
+  .copyright {
+    color: #fff;
+  }
 
-} */
+  h6 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   .wrapper {
