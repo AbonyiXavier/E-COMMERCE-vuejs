@@ -12,6 +12,23 @@
             <b-row>
               <b-col lg="4" md="4">
                 <img :src="items[0].imageLink" alt class="image-item" />
+                <div>
+                  <img
+                    :src="items[0].imageLink"
+                    @click="changeimage1"
+                    class="image-items"
+                  />
+                  <img
+                    :src="items[0].imageLink"
+                    @click="changeimage2"
+                    class="image-items"
+                  />
+                  <img
+                    :src="items[0].imageLink"
+                    @click="changeimage3"
+                    class="image-items"
+                  />
+                </div>
               </b-col>
               <b-col lg="8" md="8" style="overflow-x: hidden">
                 <p>{{ items[0].name }}</p>
@@ -96,6 +113,20 @@ export default {
       // }
     };
   },
+  methods: {
+    changeimage1: function() {
+      this.items[0].imageLink = this.items[0].imageLink;
+      console.log("items", this.items);
+    },
+    changeimage2: function() {
+      this.items[0].imageLink = this.items[0].imageLink;
+      console.log("items-2", this.items);
+    },
+    changeimage3: function() {
+      this.items[0].imageLink = this.items[0].imageLink;
+      console.log("items-3", this.items);
+    }
+  },
   created() {
     this.items = this.$store.state.products.filter(item => {
       return item.id == parseInt(this.$route.params.id);
@@ -110,6 +141,10 @@ export default {
 <style scoped>
 .bg-looping {
   background-color: #f5f5f5;
+}
+.image-items {
+  width: 50px;
+  height: 50px;
 }
 .image-item {
   width: 185px;
