@@ -12,12 +12,14 @@
       >
         <b-img-lazy :src="product.imageLink" class="image"></b-img-lazy>
         <b-card-text>
-          <p>
-            {{ product.price }}
-          </p>
+          <p>{{ product.price }}</p>
         </b-card-text>
 
-        <b-button href="#" variant="primary" class="btn-sm">Buy Now</b-button>
+        <b-button
+          variant="primary"
+          class="btn-sm"
+          :to="`/product/${product.id}-${product.name.replace(/[' ']+/g,'-').toLowerCase()}`"
+        >Buy Now</b-button>
       </b-card>
     </div>
   </div>

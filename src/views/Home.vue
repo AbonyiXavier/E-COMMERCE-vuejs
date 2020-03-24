@@ -4,21 +4,13 @@
       <b-row>
         <b-col cols="3">
           <h6>Shop Now</h6>
-          <Category
-            v-for="category in Categories"
-            :category="category"
-            :key="category.id"
-          />
+          <Category v-for="category in Categories" :category="category" :key="category.id" />
         </b-col>
 
         <b-col cols="9">
           <Carousel />
           <h4 class="text-center mt-3">Products</h4>
-          <Product
-            v-for="product in products"
-            :product="product"
-            :key="product.categoryId"
-          />
+          <Product v-for="product in products" :product="product" :key="product.id" />
         </b-col>
       </b-row>
     </b-container>
@@ -60,44 +52,45 @@ export default {
           categoryName: "Perfumes"
         }
       ],
-      products: [
-        {
-          categoryId: 1,
-          name: "product 1",
-          price: "#12",
-          imageLink: require("@/assets/1.jpg")
-        },
-        {
-          categoryId: 2,
-          name: "product 2",
-          price: "#31",
-          imageLink: require("@/assets/3.jpg")
-        },
-        {
-          categoryId: 3,
-          name: "product 3",
-          price: "#40",
-          imageLink: require("@/assets/2.jpg")
-        },
-        {
-          categoryId: 4,
-          name: "product 4",
-          price: "#12",
-          imageLink: require("@/assets/6.jpg")
-        },
-        {
-          categoryId: 5,
-          name: "product 5",
-          price: "#31",
-          imageLink: require("@/assets/7.jpg")
-        },
-        {
-          categoryId: 6,
-          name: "product 6",
-          price: "#40",
-          imageLink: require("@/assets/8.jpg")
-        }
-      ],
+      products: this.$store.state.products,
+      // products: [
+      //   {
+      //     id: 1,
+      //     name: "product 1",
+      //     price: "#12",
+      //     imageLink: require("@/assets/1.jpg")
+      //   },
+      //   {
+      //     id: 2,
+      //     name: "product 2",
+      //     price: "#31",
+      //     imageLink: require("@/assets/3.jpg")
+      //   },
+      //   {
+      //     id: 3,
+      //     name: "product 3",
+      //     price: "#40",
+      //     imageLink: require("@/assets/2.jpg")
+      //   },
+      //   {
+      //     id: 4,
+      //     name: "product 4",
+      //     price: "#12",
+      //     imageLink: require("@/assets/6.jpg")
+      //   },
+      //   {
+      //     id: 5,
+      //     name: "product 5",
+      //     price: "#31",
+      //     imageLink: require("@/assets/7.jpg")
+      //   },
+      //   {
+      //     id: 6,
+      //     name: "product 6",
+      //     price: "#40",
+      //     imageLink: require("@/assets/8.jpg")
+      //   }
+      // ],
       lists: [
         {
           id: 1,

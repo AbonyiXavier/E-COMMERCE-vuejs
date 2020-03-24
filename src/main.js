@@ -6,7 +6,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import EasySlider from "vue-easy-slider";
+import ProductZoomer from "vue-product-zoomer";
 
+Vue.use(ProductZoomer);
 Vue.use(EasySlider);
 
 Vue.config.productionTip = false;
