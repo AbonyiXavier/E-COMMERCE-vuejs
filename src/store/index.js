@@ -11,6 +11,8 @@ export default new Vuex.Store({
         name: "product 1",
         price: "#12",
         imageLink: require("@/assets/1.jpg")
+        // imageLink1: require("@/assets/11.jpg"),
+        // imageLink2: require("@/assets/12.jpg")
       },
       {
         id: 2,
