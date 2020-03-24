@@ -11,7 +11,7 @@
           <b-card>
             <b-row>
               <b-col lg="4" md="4">
-                <img :src="items[0].imageLink" alt class="image-item" />
+                <img :src="items[0].imageLink" alt class="image-item mb-2" />
                 <div>
                   <img
                     :src="items[0].imageLink"
