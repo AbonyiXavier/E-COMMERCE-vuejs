@@ -32,7 +32,7 @@
               </b-col>
               <b-col lg="8" md="8" style="overflow-x: hidden">
                 <p>{{ items[0].name }}</p>
-                <p>describing product 1 .......</p>
+                <p>describing product details .......</p>
                 <p>Branding............</p>
                 <p>{{ items[0].price }}</p>
                 <b-button block variant="primary">
