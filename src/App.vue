@@ -20,11 +20,11 @@ export default {
 };
 </script>
 <style>
-#app {
+/* #app {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-family: "Trade Winds", cursive;
   font-family: "Indie Flower", cursive;
   font-family: "Dancing Script", cursive;
   font-family: "Permanent Marker", cursive;
-}
+} */
 </style>
