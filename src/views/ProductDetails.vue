@@ -36,10 +36,10 @@
                 </p>
                 <p>describing product details .......</p>
                 <p>Branding............</p>
-                <p>&#8358;{{ items[0].price }}</p>
+                <p>&#8358;{{ getDiscount() }}</p>
                 <p>
-                  <strike>&#8358;{{ items[0].price *3 }}</strike>
-                  <span style="background-color: #ccc; color: red; padding:2px;">-{{ percent }}%</span>
+                  <strike>&#8358;{{ items[0].price }}</strike>
+                  <span style="background-color: #ccc; color: red; padding:2px;">{{ percent }}%</span>
                 </p>
                 <b-button block variant="primary" class="mb-3">
                   <i class="fas fa-shopping-cart"></i>
@@ -110,8 +110,13 @@ export default {
   data() {
     return {
       items: [],
-      percent: null
+      percent: 30
     };
+  },
+  computed: {
+    price() {
+      return this.getDiscount();
+    }
   },
   methods: {
     changeimage1() {
@@ -126,17 +131,24 @@ export default {
       this.items[0].imageLink = this.items[0].imageLink3;
       console.log("items-3", this.items);
     },
-    getDiscount() {
-      this.percent = ((this.items[0].price * 3) / 100000).toFixed(2);
+    // getDiscount() {
+    //   let reductionPrice = (this.items[0].price * 0.3).toFixed(2);
+    //   console.log(reductionPrice);
 
-      console.log("my pricing", this.items[0].price);
+    //   console.log("my pricing", this.items[0].price);
+    // }
+    getDiscount() {
+      let percent = this.percent / 100;
+      let reductionPrice = (this.items[0].price * percent).toFixed(2);
+      let customerPrice = this.items[0].price - reductionPrice;
+      return customerPrice;
     }
   },
   created() {
     this.items = this.$store.state.products.filter(item => {
       return item.id == parseInt(this.$route.params.id);
     });
-    this.getDiscount();
+
     console.log("my item", this.items);
     console.log("my item", typeof Number(this.$route.params.id));
   }
