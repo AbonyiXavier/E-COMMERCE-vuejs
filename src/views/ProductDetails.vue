@@ -41,7 +41,7 @@
                   <strike>&#8358;{{ items[0].price }}</strike>
                   <span style="background-color: #ccc; color: red; padding:2px;">{{ percent }}%</span>
                 </p>
-                <b-button block variant="primary" class="mb-3">
+                <b-button block variant="warning" class="mb-3">
                   <i class="fas fa-shopping-cart"></i>
                   <span>ADD TO CART</span>
                 </b-button>
