@@ -12,7 +12,7 @@
       >
         <b-img-lazy :src="product.imageLink" class="image"></b-img-lazy>
         <b-card-text>
-          <p>{{ product.price }}</p>
+          <p>&#8358;{{ product.price }}</p>
         </b-card-text>
 
         <b-button

@@ -1,11 +1,6 @@
 <template>
   <div id="carousel">
-    <Slider
-      animation="fade"
-      v-model="sliderValue"
-      :duration="5000"
-      :speed="1000"
-    >
+    <Slider animation="fade" v-model="sliderValue" :duration="5000" :speed="1000">
       <SliderItem v-for="image in lists" :key="image.id">
         <img :src="image.url" class="img" />
       </SliderItem>

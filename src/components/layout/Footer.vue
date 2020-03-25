@@ -104,12 +104,6 @@
               <h6>Methods of payment and delivery partner</h6>
               <ul class="ul">
                 <a href>
-                  <li>Paystack</li>
-                </a>
-                <a href>
-                  <li>Interswitch</li>
-                </a>
-                <a href>
                   <li>
                     <i class="fab fa-cc-visa"></i> Visa
                   </li>
