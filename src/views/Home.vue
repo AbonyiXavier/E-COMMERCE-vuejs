@@ -2,7 +2,7 @@
   <div class="home">
     <b-container>
       <b-row>
-        <b-col cols="3">
+        <b-col cols="3" class="side">
           <h6>Shop Now</h6>
           <Category v-for="category in Categories" :category="category" :key="category.id" />
         </b-col>
@@ -122,3 +122,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+.side {
+  position: sticky;
+  top: 62px;
+  height: 300px;
+}
+</style>

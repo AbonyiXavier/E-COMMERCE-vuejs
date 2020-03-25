@@ -1,9 +1,7 @@
 <template>
-  <div class="side">
-    <div class="list-group">
-      <a href=""
-        ><i class="fas fa-chevron-right"></i> {{ category.categoryName }}</a
-      >
+  <div>
+    <div>
+      <a href>{{ category.categoryName }}</a>
     </div>
   </div>
 </template>
@@ -17,6 +15,7 @@ export default {
 .list-group a {
   text-decoration: none;
 }
+
 a {
   color: rgba(0, 0, 0, 0.54);
 }
