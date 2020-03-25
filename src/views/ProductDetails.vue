@@ -13,9 +13,9 @@
               <b-col lg="4" md="4">
                 <img :src="items[0].imageLink" alt class="image-item mb-2" />
                 <div class="mb-3">
-                  <img :src="items[0].imageLink" @click="changeimage1" alt class="image-items" />
-                  <img :src="items[0].imageLink" @click="changeimage2" alt class="image-items" />
-                  <img :src="items[0].imageLink" @click="changeimage3" alt class="image-items" />
+                  <img :src="items[0].imageLink" alt class="image-items" />
+                  <img :src="items[0].imageLink" class="image-items" />
+                  <img :src="items[0].imageLink" alt class="image-items" />
                   <h6 class="mt-3">SHARE THIS PRODUCT</h6>
 
                   <div>
@@ -119,18 +119,18 @@ export default {
     }
   },
   methods: {
-    changeimage1() {
-      this.items[0].imageLink1 = this.items[0].imageLink;
-      console.log("items", this.items);
-    },
-    changeimage2: function() {
-      this.items[0].imageLink = this.items[0].imageLink2;
-      console.log("items-2", this.items);
-    },
-    changeimage3: function() {
-      this.items[0].imageLink = this.items[0].imageLink3;
-      console.log("items-3", this.items);
-    },
+    // changeimage1() {
+    //   this.items[0].imageLink1 = this.items[0].imageLink;
+    //   console.log("items", this.items);
+    // },
+    // changeimage2: function() {
+    //   this.items[0].imageLink = this.items[0].imageLink2;
+    //   console.log("items-2", this.items);
+    // },
+    // changeimage3: function() {
+    //   this.items[0].imageLink = this.items[0].imageLink3;
+    //   console.log("items-3", this.items);
+    // },
     // getDiscount() {
     //   let reductionPrice = (this.items[0].price * 0.3).toFixed(2);
     //   console.log(reductionPrice);
