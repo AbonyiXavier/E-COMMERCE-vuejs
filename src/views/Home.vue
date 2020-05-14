@@ -4,13 +4,21 @@
       <b-row>
         <b-col cols="3" class="side">
           <h6>Shop Now</h6>
-          <Category v-for="category in Categories" :category="category" :key="category.id" />
+          <Category
+            v-for="category in Categories"
+            :category="category"
+            :key="category.id"
+          />
         </b-col>
 
         <b-col cols="9">
           <Carousel />
           <h4 class="text-center mt-3">Products</h4>
-          <Product v-for="product in products" :product="product" :key="product.id" />
+          <Product
+            v-for="product in products"
+            :product="product"
+            :key="product.id"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -22,6 +30,7 @@
 import Product from "../components/Product";
 import Category from "../components/Category";
 import Carousel from "../components/Carousel";
+import axios from "axios";
 export default {
   name: "Home",
   data() {
@@ -29,28 +38,28 @@ export default {
       Categories: [
         {
           id: 1,
-          categoryName: "Men Fashion"
+          categoryName: "Men Fashion",
         },
         {
           id: 2,
-          categoryName: "Brougues Shoes"
+          categoryName: "Brougues Shoes",
         },
         {
           id: 3,
-          categoryName: "Wrist Watch"
+          categoryName: "Wrist Watch",
         },
         {
           id: 4,
-          categoryName: "Hat"
+          categoryName: "Hat",
         },
         {
           id: 5,
-          categoryName: "Phones"
+          categoryName: "Phones",
         },
         {
           id: 6,
-          categoryName: "Perfumes"
-        }
+          categoryName: "Perfumes",
+        },
       ],
       products: this.$store.state.products,
       // products: [
@@ -94,32 +103,41 @@ export default {
       lists: [
         {
           id: 1,
-          url: require("@/assets/dd.jpg")
+          url: require("@/assets/dd.jpg"),
         },
         {
           id: 2,
-          url: require("@/assets/Artboard_1.jpg")
+          url: require("@/assets/Artboard_1.jpg"),
         },
         {
           id: 3,
-          url: require("@/assets/Artboard_1_copy_5.jpg")
+          url: require("@/assets/Artboard_1_copy_5.jpg"),
         },
         {
           id: 4,
-          url: require("@/assets/vouchers.jpg")
+          url: require("@/assets/vouchers.jpg"),
         },
         {
           id: 5,
-          url: require("@/assets/NG_W12_S1_MERCH_Floor.jpg")
-        }
-      ]
+          url: require("@/assets/NG_W12_S1_MERCH_Floor.jpg"),
+        },
+      ],
     };
   },
   components: {
     Category,
     Product,
-    Carousel
-  }
+    Carousel,
+  },
+  created() {
+    axios
+      .get("http://localhost:5000/orders", {
+        headers: { Authorization: this.$cookie.get("token") },
+      })
+      .then((res) => {
+        console.log("my res", res);
+      });
+  },
 };
 </script>
 <style scoped>

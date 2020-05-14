@@ -19,7 +19,10 @@
                   <h6 class="mt-3">SHARE THIS PRODUCT</h6>
 
                   <div>
-                    <a href="https://facebook.com/francis.abonyi" target="_blank">
+                    <a
+                      href="https://facebook.com/francis.abonyi"
+                      target="_blank"
+                    >
                       <i class="fab fa-facebook-f"></i>
                     </a>
 
@@ -39,12 +42,45 @@
                 <p>&#8358;{{ getDiscount() }}</p>
                 <p>
                   <strike>&#8358;{{ items[0].price }}</strike>
-                  <span style="background-color: #ccc; color: red; padding:2px;">{{ percent }}%</span>
+                  <span style="background-color: #ccc; color: red; padding:2px;"
+                    >{{ percent }}%</span
+                  >
                 </p>
-                <b-button block variant="warning" class="mb-3">
+                <!-- <b-button block variant="warning" class="mb-3">
                   <i class="fas fa-shopping-cart"></i>
-                  <span>ADD TO CART</span>
-                </b-button>
+                  <span @click.prevent="addtocart(items[0])">ADD TO CART</span>
+                </b-button> -->
+                <b-button
+                  block
+                  variant="warning"
+                  v-b-modal.modal-center
+                  class="add2 mb-3"
+                  @click="addtocart(items[0])"
+                  ><i class="fas fa-cart-plus"></i> ADD TO CART</b-button
+                >
+                <b-modal
+                  id="modal-center"
+                  ref="modal-center"
+                  centered
+                  title="Added to Cart"
+                  hide-footer
+                  hide-header
+                >
+                  <h4>Added to Cart</h4>
+                  <br />
+                  <p>{{ items[0].name }} added to Cart</p>
+                  <div
+                    class="d-lg-flex d-sm-flex flex-sm-row flex-lg-row d-xs-block"
+                  >
+                    <button class="add1" @click="hideModal">
+                      CONTINUE SHOPPING
+                    </button>
+                    <button class="add" @click="opencart">
+                      VIEW CART AND CHECKOUT
+                    </button>
+                  </div>
+                </b-modal>
+
                 <div>
                   <p>
                     2 offers starting from &#8358;{{ items[0].price }}
@@ -77,16 +113,12 @@
           <b-card header="Delivery $ Returns" class="text-center mb-4">
             <b-card-text>
               <div>
-                <h6>
-                  <i class="fas fa-truck"></i> Delivery Information
-                </h6>
+                <h6><i class="fas fa-truck"></i> Delivery Information</h6>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
 
               <div>
-                <h6>
-                  <i class="fas fa-undo"></i> Return policy
-                </h6>
+                <h6><i class="fas fa-undo"></i> Return policy</h6>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </b-card-text>
@@ -96,11 +128,16 @@
             <h6>Title...</h6>
             <b-card-text>Sub title info 1.</b-card-text>
             <b-card-text>Sub title info 2.</b-card-text>
-            <b-button href="#" variant="warning" class="follow">Follow</b-button>
+            <b-button href="#" variant="warning" class="follow"
+              >Follow</b-button
+            >
           </b-card>
         </b-col>
       </b-row>
     </b-container>
+    <!-- <b-button v-b-modal.modal-center class="add2" @click="addtocart(items[0])"
+      ><i class="fas fa-cart-plus"></i> ADD TO CART</b-button
+    > -->
   </div>
 </template>
 
@@ -110,15 +147,71 @@ export default {
   data() {
     return {
       items: [],
-      percent: 30
+      percent: 30,
+      products: null,
+      imageLink: null,
     };
   },
   computed: {
     price() {
       return this.getDiscount();
-    }
+    },
+    cartitem() {
+      return this.$store.state.cart;
+    },
   },
   methods: {
+    setCart() {
+      let qty = this.$store.getters.setCartQty();
+      this.$store.commit("setCartItemQty", qty);
+      alert(qty);
+    },
+    addtocart(x) {
+      let itemExist = false;
+      let quantity = null;
+      //check if item exist
+      this.$store.state.cart.forEach((item) => {
+        if (item.id === x.id) {
+          itemExist = true;
+          quantity = item.quantity + 1;
+        }
+      });
+      if (itemExist) {
+        // remove item if it exist
+        let item1 = this.cartitem.filter((item) => {
+          return item.id != x.id;
+        });
+        this.$store.commit("setRemoveItemCart", item1);
+        // set removed item with its new quantity
+        let item = {
+          id: x.id,
+          imagelink: x.imagelink,
+          name: x.name,
+          quantity: quantity,
+          unitPrice: x.price,
+          subTotal: parseInt(x.price) * quantity,
+        };
+        this.$store.commit("setCart", item);
+        this.setCart();
+      } else {
+        let item = {
+          id: x.id,
+          imagelink: x.imagelink,
+          name: x.name,
+          quantity: 1,
+          unitPrice: x.price,
+          subTotal: x.price,
+        };
+        this.$store.commit("setCart", item);
+        this.setCart();
+      }
+    },
+    opencart() {
+      this.$router.push("/cart");
+    },
+    hideModal() {
+      this.$refs["modal-center"].hide();
+    },
     // changeimage1() {
     //   this.items[0].imageLink1 = this.items[0].imageLink;
     //   console.log("items", this.items);
@@ -142,16 +235,16 @@ export default {
       let reductionPrice = (this.items[0].price * percent).toFixed(2);
       let customerPrice = this.items[0].price - reductionPrice;
       return customerPrice;
-    }
+    },
   },
   created() {
-    this.items = this.$store.state.products.filter(item => {
+    this.items = this.$store.state.products.filter((item) => {
       return item.id == parseInt(this.$route.params.id);
     });
-
+    this.imageLink = items[0].imageLink;
     console.log("my item", this.items);
     console.log("my item", typeof Number(this.$route.params.id));
-  }
+  },
 };
 </script>
 
@@ -220,5 +313,63 @@ span a {
 }
 .follow {
   float: right;
+}
+
+.add {
+  width: 100%;
+  background: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px 0px #e5e5e5;
+  height: 48px;
+  font-weight: bold;
+}
+.add1 {
+  width: 100%;
+  background: #fff;
+  color: #ff9900;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px 0px #e5e5e5;
+  height: 48px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.add1:focus {
+  outline: none;
+}
+.add:hover {
+  background: #ffad33;
+}
+
+.add2 {
+  background: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px 0px #e5e5e5;
+  height: 48px;
+  font-weight: bold;
+}
+.add2:hover {
+  background: #ffad33;
+}
+
+@media only screen and (min-width: 600px) {
+  .add1 {
+    width: 100%;
+    background: #fff;
+    color: #ff9900;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 0px #e5e5e5;
+    height: 48px;
+    font-weight: bold;
+    margin-right: 0.1rem;
+  }
+  .add {
+    margin-left: 0.1rem;
+  }
 }
 </style>
