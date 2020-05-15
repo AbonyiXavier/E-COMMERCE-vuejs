@@ -31,6 +31,7 @@ import Product from "../components/Product";
 import Category from "../components/Category";
 import Carousel from "../components/Carousel";
 import axios from "axios";
+import EventService from "../services/EventService";
 export default {
   name: "Home",
   data() {
@@ -129,7 +130,9 @@ export default {
     Product,
     Carousel,
   },
+
   created() {
+    console.log("my life token", this.$cookie.get("token"));
     axios
       .get("http://localhost:5000/orders", {
         headers: { Authorization: this.$cookie.get("token") },
@@ -137,6 +140,9 @@ export default {
       .then((res) => {
         console.log("my res", res);
       });
+    // EventService.getOrders().then((res) => {
+    //   console.log("my res", res);
+    // });
   },
 };
 </script>

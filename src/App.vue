@@ -12,11 +12,25 @@
 <script>
 import Header from "../src/components/layout/Header";
 import Footer from "../src/components/layout/Footer";
+import EventService from "../src/services/EventService";
+import axios from "axios";
 export default {
   components: {
     Header,
-    Footer
-  }
+    Footer,
+  },
+  methods: {
+    async authUser() {
+      let user = await axios.get("http://localhost:5000/authUser", {
+        headers: { Authorization: this.$cookie.get("token") },
+      });
+      // console.log("object", res);
+      this.$store.commit("SET_USER", user.data);
+    },
+  },
+  created() {
+    this.authUser();
+  },
 };
 </script>
 <style>

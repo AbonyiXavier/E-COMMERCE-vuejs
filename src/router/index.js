@@ -7,6 +7,8 @@ import Register from "../views/Register.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import Cart from "../views/Cart.vue";
 import CheckOut from "../views/CheckOut.vue";
+import Dashboard from "../views/Dashboard.vue";
+import ChangePassword from "../views/ChangePassword.vue";
 
 Vue.use(VueRouter);
 
@@ -15,9 +17,13 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    beforeEnter: (to, from, next) => {
+      if (store.state.LoggedIn) {
+        next();
+      } else {
+        next("/login");
+      }
+    },
   },
   {
     path: "/login",
@@ -29,7 +35,16 @@ const routes = [
     name: "Register",
     component: Register,
   },
-
+  {
+    path: "/changepassword",
+    name: "ChangePassword",
+    component: ChangePassword,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+  },
   {
     path: "/product/:id-:name",
     name: "ProductDetails",
@@ -64,18 +79,27 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // let token = Vue.cookie.get("token");
-    // console.log("i am a war", token);
-    if (store.getters.loggedIn) {
-      next();
-      return;
-    }
-    next("/login");
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     // let token = Vue.cookie.get("token");
+//     // console.log("i am a war", token);
+//     if (store.getters.loggedIn) {
+//       next();
+//       return;
+//     }
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// });
+
+// router.beforeEach((to, from, next) => {
+//   if (store.loggedIn === true) {
+//     next();
+//     return;
+//   } else {
+//     next("/login");
+//   }
+// });
 
 export default router;

@@ -77,7 +77,7 @@ export default {
           this.$cookie.set("token", res.data.token),
             this.$store.dispatch("SET_TOKEN", res.data.token);
           this.$store.dispatch("SET_USER", res.data.user);
-          this.$router.push("/");
+          this.$router.push({ name: "Dashboard" });
         });
 
       (this.email = ""), (this.password = "");

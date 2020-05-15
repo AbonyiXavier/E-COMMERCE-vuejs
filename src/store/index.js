@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
-    LoggedIn: null,
+    LoggedIn: false,
     token: null,
     cart: [],
     products: [
@@ -76,12 +76,12 @@ export default new Vuex.Store({
 
     SET_USER(state, user) {
       state.user = user;
+      if (state.user) {
+        state.LoggedIn = true;
+      }
     },
     SET_TOKEN(state, token) {
       state.token = token;
-      if (token) {
-        state.LoggedIn = true;
-      }
     },
   },
   actions: {
@@ -106,28 +106,37 @@ export default new Vuex.Store({
     loggedIn(state) {
       return !!state.user;
     },
+
     // calculate total quantity in cart
     getCartQty(state) {
-      let totalQuantity = [];
-      state.cart.forEach((item) => {
-        totalQuantity.push(item.quantity);
-      });
-      let total = totalQuantity.reduce((a, b) => {
-        return a + b;
-      });
-      return total;
+      if (state.cart.length < 1) {
+        return 0;
+      } else {
+        let totalQuantity = [];
+        state.cart.forEach((item) => {
+          totalQuantity.push(item.quantity);
+        });
+        let total = totalQuantity.reduce((a, b) => {
+          return a + b;
+        });
+        return total;
+      }
     },
 
     // calculate total price
     getTotalPrice(state) {
-      let totalPrice = [];
-      state.cart.forEach((item) => {
-        totalPrice.push(item.subTotal);
-      });
-      let totalP = totalPrice.reduce((a, b) => {
-        return a + b;
-      });
-      return totalP;
+      if (state.cart.length < 1) {
+        return 0;
+      } else {
+        let totalPrice = [];
+        state.cart.forEach((item) => {
+          totalPrice.push(item.subTotal);
+        });
+        let totalP = totalPrice.reduce((a, b) => {
+          return a + b;
+        });
+        return totalP;
+      }
     },
   },
   modules: {},
