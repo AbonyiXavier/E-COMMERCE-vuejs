@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-looping">
+  <div class="bg-looping m-top">
     <!-- <h1>{{ $route.params.id }}</h1> -->
     <!-- <h1>{{ items[0].name}}</h1>
     <h1>{{ items[0].price}}</h1>
@@ -11,18 +11,15 @@
           <b-card>
             <b-row>
               <b-col lg="4" md="4">
-                <img :src="items[0].imageLink" alt class="image-item mb-2" />
+                <img :src="productDetails.image" alt class="image-item mb-2" />
                 <div class="mb-3">
-                  <img :src="items[0].imageLink" alt class="image-items" />
+                  <!-- <img :src="items[0].imageLink" alt class="image-items" />
                   <img :src="items[0].imageLink" class="image-items" />
-                  <img :src="items[0].imageLink" alt class="image-items" />
+                  <img :src="items[0].imageLink" alt class="image-items" />-->
                   <h6 class="mt-3">SHARE THIS PRODUCT</h6>
 
                   <div>
-                    <a
-                      href="https://facebook.com/francis.abonyi"
-                      target="_blank"
-                    >
+                    <a href="https://facebook.com/francis.abonyi" target="_blank">
                       <i class="fab fa-facebook-f"></i>
                     </a>
 
@@ -34,30 +31,29 @@
               </b-col>
               <b-col lg="8" md="8" style="overflow-x: hidden">
                 <p>
-                  {{ items[0].name }}
+                  {{ productDetails.product_name }}
                   <i class="far fa-heart"></i>
                 </p>
                 <p>describing product details .......</p>
                 <p>Branding............</p>
-                <p>&#8358;{{ getDiscount() }}</p>
+                <p>&#8358;{{ productDetails.product_price }}</p>
                 <p>
-                  <strike>&#8358;{{ items[0].price }}</strike>
-                  <span style="background-color: #ccc; color: red; padding:2px;"
-                    >{{ percent }}%</span
-                  >
+                  <strike>&#8358;{{ discountPrice }}</strike>
+                  <span style="background-color: #ccc; color: red; padding:2px;">{{ percent }}%</span>
                 </p>
                 <!-- <b-button block variant="warning" class="mb-3">
                   <i class="fas fa-shopping-cart"></i>
                   <span @click.prevent="addtocart(items[0])">ADD TO CART</span>
-                </b-button> -->
+                </b-button>-->
                 <b-button
                   block
                   variant="warning"
                   v-b-modal.modal-center
                   class="add2 mb-3"
-                  @click="addtocart(items[0])"
-                  ><i class="fas fa-cart-plus"></i> ADD TO CART</b-button
+                  @click="addtocart(productDetails)"
                 >
+                  <i class="fas fa-cart-plus"></i> ADD TO CART
+                </b-button>
                 <b-modal
                   id="modal-center"
                   ref="modal-center"
@@ -68,22 +64,16 @@
                 >
                   <h4>Added to Cart</h4>
                   <br />
-                  <p>{{ items[0].name }} added to Cart</p>
-                  <div
-                    class="d-lg-flex d-sm-flex flex-sm-row flex-lg-row d-xs-block"
-                  >
-                    <button class="add1" @click="hideModal">
-                      CONTINUE SHOPPING
-                    </button>
-                    <button class="add" @click="opencart">
-                      VIEW CART AND CHECKOUT
-                    </button>
+                  <p>{{ productDetails.product_name }} added to Cart</p>
+                  <div class="d-lg-flex d-sm-flex flex-sm-row flex-lg-row d-xs-block">
+                    <button class="add1" @click="hideModal">CONTINUE SHOPPING</button>
+                    <button class="add" @click="opencart">VIEW CART AND CHECKOUT</button>
                   </div>
                 </b-modal>
 
                 <div>
                   <p>
-                    2 offers starting from &#8358;{{ items[0].price }}
+                    2 offers starting from &#8358;{{ productDetails.product_price }}
                     <span>
                       <a href>See more offers</a>
                     </span>
@@ -113,12 +103,16 @@
           <b-card header="Delivery $ Returns" class="text-center mb-4">
             <b-card-text>
               <div>
-                <h6><i class="fas fa-truck"></i> Delivery Information</h6>
+                <h6>
+                  <i class="fas fa-truck"></i> Delivery Information
+                </h6>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
 
               <div>
-                <h6><i class="fas fa-undo"></i> Return policy</h6>
+                <h6>
+                  <i class="fas fa-undo"></i> Return policy
+                </h6>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </b-card-text>
@@ -128,16 +122,14 @@
             <h6>Title...</h6>
             <b-card-text>Sub title info 1.</b-card-text>
             <b-card-text>Sub title info 2.</b-card-text>
-            <b-button href="#" variant="warning" class="follow"
-              >Follow</b-button
-            >
+            <b-button href="#" variant="warning" class="follow">Follow</b-button>
           </b-card>
         </b-col>
       </b-row>
     </b-container>
     <!-- <b-button v-b-modal.modal-center class="add2" @click="addtocart(items[0])"
       ><i class="fas fa-cart-plus"></i> ADD TO CART</b-button
-    > -->
+    >-->
   </div>
 </template>
 
@@ -149,16 +141,20 @@ export default {
       items: [],
       percent: 30,
       products: null,
-      imageLink: null,
+      imageLink: null
     };
   },
   computed: {
-    price() {
-      return this.getDiscount();
+    discountPrice() {
+      let per = Math.floor(30 / 100);
+      return (this.productDetails.product_price * 30) / 100;
     },
     cartitem() {
       return this.$store.state.cart;
     },
+    productDetails() {
+      return this.$store.state.productDetails;
+    }
   },
   methods: {
     setCart() {
@@ -170,7 +166,7 @@ export default {
       let itemExist = false;
       let quantity = null;
       //check if item exist
-      this.$store.state.cart.forEach((item) => {
+      this.$store.state.cart.forEach(item => {
         if (item.id === x.id) {
           itemExist = true;
           quantity = item.quantity + 1;
@@ -178,29 +174,29 @@ export default {
       });
       if (itemExist) {
         // remove item if it exist
-        let item1 = this.cartitem.filter((item) => {
+        let item1 = this.cartitem.filter(item => {
           return item.id != x.id;
         });
         this.$store.commit("setRemoveItemCart", item1);
         // set removed item with its new quantity
         let item = {
           id: x.id,
-          imagelink: x.imagelink,
-          name: x.name,
+          imagelink: x.image,
+          name: x.product_name,
           quantity: quantity,
-          unitPrice: x.price,
-          subTotal: parseInt(x.price) * quantity,
+          unitPrice: x.product_price,
+          subTotal: parseInt(x.product_price) * quantity
         };
         this.$store.commit("setCart", item);
         this.setCart();
       } else {
         let item = {
-          id: x.id,
-          imagelink: x.imagelink,
-          name: x.name,
+          id: x.product_id,
+          imagelink: x.image,
+          name: x.product_name,
           quantity: 1,
-          unitPrice: x.price,
-          subTotal: x.price,
+          unitPrice: x.product_price,
+          subTotal: x.product_price
         };
         this.$store.commit("setCart", item);
         this.setCart();
@@ -211,7 +207,7 @@ export default {
     },
     hideModal() {
       this.$refs["modal-center"].hide();
-    },
+    }
     // changeimage1() {
     //   this.items[0].imageLink1 = this.items[0].imageLink;
     //   console.log("items", this.items);
@@ -230,27 +226,30 @@ export default {
 
     //   console.log("my pricing", this.items[0].price);
     // }
-    getDiscount() {
-      let percent = this.percent / 100;
-      let reductionPrice = (this.items[0].price * percent).toFixed(2);
-      let customerPrice = this.items[0].price - reductionPrice;
-      return customerPrice;
-    },
-  },
-  created() {
-    this.items = this.$store.state.products.filter((item) => {
-      return item.id == parseInt(this.$route.params.id);
-    });
-    this.imageLink = items[0].imageLink;
-    console.log("my item", this.items);
-    console.log("my item", typeof Number(this.$route.params.id));
-  },
+    // getDiscount() {
+    //   let percent = this.percent / 100;
+    //   let reductionPrice = (this.items[0].price * percent).toFixed(2);
+    //   let customerPrice = this.items[0].price - reductionPrice;
+    //   return customerPrice;
+    // }
+  }
+  // created() {
+  //   this.items = this.$store.state.products.filter(item => {
+  //     return item.id == parseInt(this.$route.params.id);
+  //   });
+  //   this.imageLink = items[0].imageLink;
+  //   console.log("my item", this.items);
+  //   console.log("my item", typeof Number(this.$route.params.id));
+  // }
 };
 </script>
 
 <style scoped>
 .bg-looping {
   background-color: #f5f5f5;
+}
+.m-top {
+  margin-top: 10vh;
 }
 .image-items {
   width: 50px;

@@ -9,22 +9,20 @@
         <br />
         <br />
         <br />
-        <h4 class="text-center"><i class="fas fa-shopping-cart"></i></h4>
+        <h4 class="text-center">
+          <i class="fas fa-shopping-cart"></i>
+        </h4>
         <h4 class="text-center">Your cart is empty!</h4>
         <p class="text-center">
           Already have an account?
-          <router-link to="/login">login</router-link> to see the items in your
+          <router-link to="/login">login</router-link>to see the items in your
           cart.
         </p>
         <h4 class="text-center ml-3">
-          <b-button to="/" class="add" style="float: center"
-            >START SHOPPING</b-button
-          >
+          <b-button to="/" class="add" style="float: center">START SHOPPING</b-button>
         </h4>
       </div>
-      <h4 v-if="this.$store.state.cart.length > 0">
-        Cart ({{ totalQuantity }} items)
-      </h4>
+      <h4 v-if="this.$store.state.cart.length > 0">Cart ({{ totalQuantity }} items)</h4>
       <br />
       <div v-for="cart in cartitem" :key="cart.id">
         <CartItem :cart="cart" />
@@ -32,9 +30,8 @@
       <b-col lg="10" md="10" xl="10">
         <b-row align-h="end" class="mr-0">
           <div class="text-right mr-1" v-if="this.$store.state.cart.length > 0">
-            <h5>Total: ₦ {{ totalPrice }}</h5>
-            Shipping fees not included yet <br />
-            Customs Fee not included yet
+            <h5>Total: ₦ {{ totalPrice }}</h5>Shipping fees not included yet
+            <br />Customs Fee not included yet
           </div>
         </b-row>
       </b-col>
@@ -43,25 +40,18 @@
       <b-container>
         <b-col lg="12" md="12" xl="12" xs="12">
           <b-row align-h="end" class="mr-5">
-            <div
-              class="d-lg-flex d-sm-flex flex-sm-row flex-lg-row d-xs-block mr-5"
-            >
-              <b-button class="add1 mb-2" to="/" @click="hideModal"
-                >CONTINUE SHOPPING</b-button
-              >
-              <button
-                to="/checkout"
+            <div class="d-lg-flex d-sm-flex flex-sm-row flex-lg-row d-xs-block mr-5">
+              <b-button class="add1 mb-2" to="/" @click="hideModal">CONTINUE SHOPPING</b-button>
+              <b-button
+                to="/payment"
+                v-if="this.$store.state.LoggedIn"
                 class="add"
-                v-if="this.$store.state.loggedIn"
-              >
-                PROCEED TO CHECKOUT
-              </button>
+              >PROCEED TO CHECKOUT</b-button>
               <b-button
                 to="/login"
-                v-if="!this.$store.state.loggedIn"
+                v-if="!this.$store.state.LoggedIn"
                 class="add"
-                >PROCEED TO CHECKOUT</b-button
-              >
+              >PROCEED TO CHECKOUT</b-button>
             </div>
           </b-row>
         </b-col>
@@ -75,12 +65,12 @@ import CartItem from "@/components/CartItem";
 export default {
   name: "Home",
   components: {
-    CartItem,
+    CartItem
   },
   methods: {
     openlogin() {
       this.$router.push("/login");
-    },
+    }
   },
   data: () => ({}),
   computed: {
@@ -95,8 +85,8 @@ export default {
     // get cart total price
     totalPrice() {
       return this.$store.getters.getTotalPrice;
-    },
-  },
+    }
+  }
 };
 </script>
 

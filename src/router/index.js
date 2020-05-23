@@ -9,6 +9,7 @@ import Cart from "../views/Cart.vue";
 import CheckOut from "../views/CheckOut.vue";
 import Dashboard from "../views/Dashboard.vue";
 import ChangePassword from "../views/ChangePassword.vue";
+import Payment from "../views/Payment.vue";
 
 Vue.use(VueRouter);
 
@@ -17,23 +18,37 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    beforeEnter: (to, from, next) => {
-      if (store.state.LoggedIn) {
-        next();
-      } else {
-        next("/login");
-      }
-    },
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.LoggedIn) {
+    //     next();
+    //   } else {
+    //     next("/login");
+    //   }
+    // },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
+    beforeEnter(to, from, next) {
+      if (store.state.loggedIn) {
+        next("/dasboard");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    beforeEnter(to, from, next) {
+      if (store.state.loggedIn) {
+        next("/dasboard");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/changepassword",
@@ -46,12 +61,28 @@ const routes = [
     component: Dashboard,
   },
   {
+    path: "/payment",
+    name: "Payment",
+    component: Payment,
+    // beforeEnter(to, from, next) {
+    //   if (store.state.loggedIn) {
+    //     next();
+    //   } else {
+    //     next("/login");
+    //   }
+    // },
+  },
+  {
     path: "/product/:id-:name",
     name: "ProductDetails",
     component: ProductDetails,
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    beforeEnter(to, from, next) {
+      store.dispatch({
+        type: "productDatails",
+        id: to.params.id,
+      });
+      next();
+    },
   },
   {
     path: "/cart",

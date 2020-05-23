@@ -15,4 +15,10 @@ export default {
   authUser() {
     return apiClient.get("/authUser");
   },
+  addProducts() {
+    return apiClient.get("/products");
+  },
+  productDetails(product_id) {
+    return apiClient.get(`/products/${product_id}`);
+  },
 };

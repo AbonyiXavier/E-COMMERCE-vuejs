@@ -5,20 +5,18 @@
       <div class="d-lg-flex d-sm-flex flex-sm-column flex-lg-row mt-5">
         <div class="mt-sm-2 mt-lg-0">
           <div class="ml-lg-3 third mb-3">
-            <b-link class="dropdown-item acc" to="/dashboard"
-              ><i class="fas fa-user mr-3"></i> My Account</b-link
-            >
-            <b-link class="dropdown-item" to="/orders"
-              ><i class="fas fa-box mr-3"></i>Orders</b-link
-            >
-            <b-link class="dropdown-item" to="saved"
-              ><i class="fas fa-heart mr-3"></i>Saved Items</b-link
-            >
+            <b-link class="dropdown-item acc" to="/dashboard">
+              <i class="fas fa-user mr-3"></i> My Account
+            </b-link>
+            <b-link class="dropdown-item" to="/orders">
+              <i class="fas fa-box mr-3"></i>Orders
+            </b-link>
+            <b-link class="dropdown-item" to="saved">
+              <i class="fas fa-heart mr-3"></i>Saved Items
+            </b-link>
             <div class="dropdown-divider"></div>
             <b-link class="dropdown-item" to="address">Address Book</b-link>
-            <b-link class="dropdown-item" to="changepassword"
-              >Change Password</b-link
-            >
+            <b-link class="dropdown-item" to="changepassword">Change Password</b-link>
             <div class="dropdown-divider"></div>
             <p class="text-center">
               <button class="mb-2 changepassword2">LOGOUT</button>
@@ -31,16 +29,16 @@
             <p class="mx-3 sidehead">Account Overview</p>
             <div class="ml-lg-3 sec mt-n1">
               <p class="hee">
-                ACCOUNT DETAILS <i class="fas fa-pencil-alt float-right"></i>
+                ACCOUNT DETAILS
+                <i class="fas fa-pencil-alt float-right"></i>
               </p>
 
-              <p class="mx-3">
-                Name: {{ user.first_name }} {{ user.last_name }}
-              </p>
+              <p class="mx-3">Name: {{ user.first_name }} {{ user.last_name }}</p>
 
               <p class="ml-3 addd">Email: {{ user.email }}</p>
-
-              <button class="mx-3 mt-4 changepassword">CHANGE PASSWORD</button>
+              <router-link to="/changepassword">
+                <button class="mx-3 mt-4 changepassword">CHANGE PASSWORD</button>
+              </router-link>
             </div>
 
             <div class="ml-lg-3 sec mt-3">
@@ -49,9 +47,7 @@
                 <i class="fas fa-pencil-alt float-right"></i>
               </p>
 
-              <p class="mx-3">
-                You are currently subscribed to following newsletters:
-              </p>
+              <p class="mx-3">You are currently subscribed to following newsletters:</p>
 
               <p class="mx-3 addd mt-5">&#10003; daily newsletters</p>
             </div>
@@ -59,7 +55,8 @@
 
           <div class="ml-lg-3 sec mt-4 mt-5 mt-3">
             <p class="hee">
-              ADDRESS BOOK <i class="fas fa-pencil-alt float-right"></i>
+              ADDRESS BOOK
+              <i class="fas fa-pencil-alt float-right"></i>
             </p>
 
             <p class="mx-3">Your default shipping address:</p>
@@ -84,8 +81,8 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
-    },
-  },
+    }
+  }
 };
 </script>
 

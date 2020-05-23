@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg mt-5">
     <b-container>
       <b-card
         no-body
@@ -18,15 +18,13 @@
                   <h2>Login</h2>
                   <div class="info"></div>
                   <input type="text" v-model="email" placeholder="Email" />
-                  <input
-                    type="password"
-                    v-model="password"
-                    placeholder="Password"
-                  />
+                  <input type="password" v-model="password" placeholder="Password" />
                   <button>Login</button>
                   <h6>
                     Don't have an account? Register
-                    <span> <a href="/register" to="">here</a> </span>
+                    <span>
+                      <a href="/register" to>here</a>
+                    </span>
                   </h6>
                 </form>
               </b-card-text>
@@ -45,9 +43,16 @@ export default {
     return {
       url: require("@/assets/login-image.jpeg"),
       email: "",
-      password: "",
+      password: ""
     };
   },
+  // created() {
+  //   let item = {
+  //     successMessage: "hello",
+  //     showSuccess: true,
+  //   };
+  //   this.$store.commit("setSuccessAlert", item);
+  // },
   methods: {
     // login: function() {
     //   axios
@@ -66,23 +71,39 @@ export default {
     //       console.log("my error", err);
     //     });
     // },
+
+    showError(message, show) {
+      let item = {
+        errorMessage: message,
+        showError: show
+      };
+      this.$store.commit("setErrorAlert", item);
+    },
     login() {
       axios
         .post("http://localhost:5000/signin", {
           email: this.email,
-          password: this.password,
+          password: this.password
         })
-        .then((res) => {
-          console.log("my world", res);
-          this.$cookie.set("token", res.data.token),
-            this.$store.dispatch("SET_TOKEN", res.data.token);
-          this.$store.dispatch("SET_USER", res.data.user);
-          this.$router.push({ name: "Dashboard" });
+        .then(res => {
+          console.log(res);
+          if (res.status === 201) {
+            console.log("my world", res);
+            this.$cookie.set("token", res.data.token),
+              this.$store.dispatch("SET_TOKEN", res.data.token);
+            this.$store.dispatch("SET_USER", res.data.user);
+            this.$router.push({ name: "Dashboard" });
+          } else {
+            this.showError(res.data.message, true);
+          }
+        })
+        .catch(e => {
+          this.showError(e, true);
+          console.log("error", e);
         });
-
-      (this.email = ""), (this.password = "");
-    },
-  },
+      // (this.email = ""), (this.password = "");
+    }
+  }
 };
 </script>
 

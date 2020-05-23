@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div>
       <b-card
-        :title="product.name"
+        :title="product.product_name"
         img-alt="Image"
         img-top
         tag="article"
@@ -10,15 +10,15 @@
         class="mb-2"
         fluid
       >
-        <b-img-lazy :src="product.imageLink" class="image"></b-img-lazy>
+        <b-img-lazy :src="product.image" class="image"></b-img-lazy>
         <b-card-text>
-          <p>&#8358;{{ product.price }}</p>
+          <p>&#8358;{{ product.product_price }}</p>
         </b-card-text>
 
         <b-button
           variant="primary"
           class="btn-sm"
-          :to="`/product/${product.id}-${product.name.replace(/[' ']+/g,'-').toLowerCase()}`"
+          :to="`/product/${product.product_id}-${product.product_name.replace(/[' ']+/g,'-').toLowerCase()}`"
         >Buy Now</b-button>
       </b-card>
     </div>

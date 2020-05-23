@@ -5,22 +5,18 @@
         <div class="d-lg-flex d-sm-flex flex-sm-column flex-lg-row">
           <!-- image & name -->
           <div class="d-flex details border-right">
-            <img class="bigpic" :src="cart.imageLink" />
+            <img class="bigpic" :src="cart.imagelink" />
             <div class="ml-2">
               <p>
                 <b>{{ cart.name }}</b>
               </p>
               <!-- price on mobile-->
-              <div class="mt-n3 d-lg-none d-xl-none d-md-none d-sm-none">
-                ₦ {{ subTotal }}
-              </div>
+              <div class="mt-n3 d-lg-none d-xl-none d-md-none d-sm-none">₦ {{ subTotal }}</div>
               <div class="d-none d-lg-block d-xl-block d-md-block d-sm-block">
                 <i class="fas fa-heart"></i>
-                <router-link to="">MOVE TO SAVED ITEMS</router-link>
+                <router-link to>MOVE TO SAVED ITEMS</router-link>
                 <i class="fas fa-trash"></i>
-                <router-link to="" @click.native="remove(cart)"
-                  >REMOVE</router-link
-                >
+                <router-link to @click.native="remove(cart)">REMOVE</router-link>
               </div>
             </div>
           </div>
@@ -50,27 +46,19 @@
           </div>
           <div
             class="border-right pl-5 pr-5 pt-3 d-none d-lg-block d-xl-block d-md-block d-sm-block"
-          >
-            ₦ {{ cart.unitPrice }}
-          </div>
+          >₦ {{ cart.unitPrice }}</div>
           <div
             class="pl-5 pt-3 pl-5 d-none d-lg-block d-xl-block d-md-block d-sm-block"
-          >
-            ₦ {{ subTotal }}
-          </div>
+          >₦ {{ subTotal }}</div>
 
           <!-- actions for mobile-->
-          <div
-            class="d-flex d-lg-none d-xl-none d-md-none d-sm-none border-top mt-2 mb-n3"
-          >
+          <div class="d-flex d-lg-none d-xl-none d-md-none d-sm-none border-top mt-2 mb-n3">
             <div class="mt-3">
-              <router-link class="border-right pr-2" to=""
-                ><i class="fas fa-heart"></i
-              ></router-link>
+              <router-link class="border-right pr-2" to>
+                <i class="fas fa-heart"></i>
+              </router-link>
               <i class="fas fa-trash"></i>
-              <router-link to="" @click.native="remove(cart)"
-                >REMOVE</router-link
-              >
+              <router-link to @click.native="remove(cart)">REMOVE</router-link>
             </div>
             <div class="ml-auto mt-2">
               <b-form-select
@@ -105,7 +93,7 @@ export default {
   name: "Home",
   props: ["cart"],
   data: () => ({
-    categories: null,
+    categories: null
   }),
 
   computed: {
@@ -117,19 +105,19 @@ export default {
     },
     subTotal() {
       return this.cart.subTotal;
-    },
+    }
   },
   methods: {
     changeQty(x) {
       alert(x);
     },
     remove(x) {
-      let item = this.cartitem.filter((item) => {
+      let item = this.cartitem.filter(item => {
         return item.id != x.id;
       });
       this.$store.commit("setRemoveItemCart", item);
       this.$router.go();
-    },
+    }
     //    changeQuantity (x) {
     //     let item = this.cartitem.filter((item) => {
     //         return item.id != x.id
@@ -137,7 +125,7 @@ export default {
     //     this.$store.commit("setRemoveItemCart", item)
     //     this.$router.go()
     //   }
-  },
+  }
 };
 </script>
 

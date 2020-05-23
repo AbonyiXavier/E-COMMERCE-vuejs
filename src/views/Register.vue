@@ -231,7 +231,7 @@ export default {
         })
         .then((res) => {
           console.log("response", res);
-          this.$router.push({ name: "Login" });
+          this.$router.push({ name: "Dashboard" });
         })
         .catch((err) => console.log("my error i see", err));
     },

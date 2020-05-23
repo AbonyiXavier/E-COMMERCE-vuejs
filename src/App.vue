@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <Header />
+      <Error />
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>-->
     </div>
@@ -14,10 +15,12 @@ import Header from "../src/components/layout/Header";
 import Footer from "../src/components/layout/Footer";
 import EventService from "../src/services/EventService";
 import axios from "axios";
+import Error from "../src/components/Error";
 export default {
   components: {
     Header,
     Footer,
+    Error,
   },
   methods: {
     async authUser() {
